@@ -35,7 +35,8 @@ You can make almost any value dynamic by using a function in its place, includin
 
 - effectDescription: **optional**. A function that returns a description of this effect. If the text stays constant, it can just be a string.
 
-- layerShown(): A function returning a bool which determines if this layer's node should be visible on the tree. It can also return "ghost", which will hide the layer, but its node will still take up space in the tree.
+- layerShown(): **optional**, A function returning a bool which determines if this layer's node should be visible on the tree. It can also return "ghost", which will hide the layer, but its node will still take up space in the tree.
+    Defaults to true.
 
 - hotkeys: **optional**. An array containing information on any hotkeys associated with this layer:
 
@@ -74,6 +75,8 @@ You can make almost any value dynamic by using a function in its place, includin
 - achievements: Kind of like milestones, but with a different display style and some other differences. Extra features are on the way at a later date! [See here for more info.](achievements.md)
 
 - infoboxes: Displays some text in a box that can be shown or hidden. [See here for more info.](infoboxes.md)
+
+- achievementPopups, milestonePopups: **optional**, If false, disables popup message when you get the achievement/milestone. True by default.
 
 ## Prestige formula features
 
@@ -121,6 +124,8 @@ You can make almost any value dynamic by using a function in its place, includin
 
 - symbol: **optional**. The text that appears on this layer's node. Default is the layer id with the first letter capitalized.
 
+- image: **override**. The url (local or global) of an image that goes on the node. (Overrides symbol)
+
 - position: **optional**. Determines the horizontal position of the layer in its row in a standard tree. By default, it uses the layer id, and layers are sorted in alphabetical order.
 
 - branches: **optional**. An array of layer/node ids. On a tree, a line will appear from this layer to all of the layers in the list. Alternatively, an entry in the array can be a 2-element array consisting of the layer id and a color value. The color value can either be a string with a hex color code, or a number from 1-3 (theme-affected colors).
@@ -158,12 +163,13 @@ componentStyles: {
 ```
 
 ## Custom Prestige type  
+(All of these can also be used by other prestige types)
 
-- getResetGain(): **for custom prestige type**. Returns how many points you should get if you reset now. You can call `getResetGain(this.layer, useType = "static")` or similar to calculate what your gain would be under another prestige type (provided you have all of the required features in the layer).
+- getResetGain(): **mostly for custom prestige type**. Returns how many points you should get if you reset now. You can call `getResetGain(this.layer, useType = "static")` or similar to calculate what your gain would be under another prestige type (provided you have all of the required features in the layer).
 
-- getNextAt(canMax=false): **for custom prestige type**. Returns how many of the base currency you need to get to the next point. `canMax` is an optional variable used with Static-ish layers to differentiate between if it's looking for the first point you can reset at, or the requirement for any gain at all (Supporting both is good). You can also call `getNextAt(this.layer, canMax=false, useType = "static")` or similar to calculate what your next at would be under another prestige type (provided you have all of the required features in the layer).
+- getNextAt(canMax=false): **mostly for custom prestige type**. Returns how many of the base currency you need to get to the next point. `canMax` is an optional variable used with Static-ish layers to differentiate between if it's looking for the first point you can reset at, or the requirement for any gain at all (Supporting both is good). You can also call `getNextAt(this.layer, canMax=false, useType = "static")` or similar to calculate what your next at would be under another prestige type (provided you have all of the required features in the layer).
 
-- canReset(): **for custom prestige type**. Return true only if you have the resources required to do a prestige here.
+- canReset(): **mostly for custom prestige type**. Return true only if you have the resources required to do a prestige here.
 
 - prestigeNotify(): **mostly for custom prestige types**, returns true if this layer should be subtly highlighted to indicate you
         can prestige for a meaningful gain.
