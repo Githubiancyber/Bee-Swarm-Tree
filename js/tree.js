@@ -18,3 +18,15 @@ addNode("blank", {
 addLayer("tree-tab", {
     tabFormat: [["tree", function() {return (layoutInfo.treeLayout ? layoutInfo.treeLayout : TREE_LAYERS)}]]
 })
+
+addLayer("eeeee", {
+  layerShown: "ghost",
+  row: 1,
+  position: 1
+});
+
+addLayer("eeeeee", {
+  layerShown: "ghost",
+  row: 1,
+  position: 3
+})
